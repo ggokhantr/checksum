@@ -1,0 +1,83 @@
+#include <iostream>
+#include <cmath>
+#include <conio.h>
+#include <iomanip>
+#include <cstring>
+using namespace std;
+
+class checksum{
+	public:
+	    long k,l;
+		int n;
+		long A[];
+	int HexBul(string s);
+	void uzunluk(string s);
+	long sumbul(string s);	
+}ob1,ob2;
+void checksum:: uzunluk(string s){
+	n=s.length();
+}
+int checksum::HexBul(string S){
+	char a;
+	for(int i=0; i<n; i++){
+		a=S.at(i);
+		A[i]=a;
+	}
+return A[n];
+}
+long checksum:: sumbul(string s){
+	k=0;
+	for(int i=0; i<n ;i+=2){
+		k=k+A[i];
+	}
+	l=0;
+	for(int j=1; j<n; j+=2){
+		l=l+A[j];
+	}
+	return k,l;
+}
+int main(int argc, char** argv) {
+	cout<<"Birinci ismi giriniz:"<<endl;
+	string s1,s2;
+	getline(cin, s1);
+	ob1.uzunluk(s1);
+	ob1.HexBul(s1);
+	ob1.sumbul(s1);
+	if(ob1.l>255){
+		ob1.k=ob1.k+ob1.l/256;
+		ob1.l=ob1.l%256;
+		if(ob1.k>255){
+			ob1.l=ob1.l+ob1.k/256;
+			ob1.l=ob1.l%256;
+			ob1.k=ob1.k%256;
+		}
+	}
+	else if(ob1.k>255){
+		ob1.l=ob1.l+ob1.k/256;
+		ob1.k=ob1.k%256;
+	}
+	cout<<hex<<"Checksum kodu: "<<ob1.k<<ob1.l<<endl;
+	cout<<"Ikinci ismi giriniz"<<endl;
+	getline(cin, s2);
+	ob2.uzunluk(s2);
+	ob2.HexBul(s2);
+	ob2.sumbul(s2);
+	if(ob2.l>255){
+		ob2.k=ob2.k+ob2.l/256;
+		ob2.l=ob2.l%256;
+		if(ob2.k>255){
+			ob2.l=ob2.l+ob2.k/256;
+			ob2.l=ob2.l%256;
+			ob2.k=ob2.k%256;
+		}
+	}else if(ob2.k>255){
+		ob2.l=ob2.l+ob2.k/256;
+		ob2.k=ob2.k%256;
+	}
+	cout<<hex<<"Checksum kodu: "<<ob2.k<<ob2.l<<endl;
+	if(ob1.k==ob2.k && ob1.l==ob2.l)
+		cout<<"isimler ayni  !";
+	else
+		cout<<"isimler ayni degil";
+	return 0;
+}
